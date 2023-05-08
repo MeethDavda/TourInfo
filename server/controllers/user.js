@@ -7,7 +7,7 @@ const secret = "jwtToken";
 
 export const signIn = async (req, res) => {
   const { email, password } = req.body;
-
+  // console.log(email, password);
   try {
     const oldUser = await userModel.findOne({ email });
     if (!oldUser)
