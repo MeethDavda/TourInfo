@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/features/authSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { GoogleLogin } from "@react-oauth/google";
+
+//7780704557-7t3eq4n9luoa39ht4vu33kv15ek9rq7i.apps.googleusercontent.com
+//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 -secret
 
 const initialState = {
   password: "",
@@ -28,8 +32,8 @@ function Login() {
     dispatch(login({ form, navigate, toast }));
   }
   return (
-    <div className="mt-[50%] md:mt-[30%]">
-      <div className="flex flex-col border-2 border-solid p-4 sm:w-40 md:w-[30em] justify-center items-center">
+    <div className="mt-[50%] md:mt-[20%]">
+      <div className="flex flex-col border-2 drop-shadow-md  p-4 sm:w-40 md:w-[30em] justify-center items-center">
         <div className="flex flex-col justify-center items-center mt-5 gap-2">
           <PersonIcon className="scale-150" />
           <span>SignIn</span>
@@ -60,6 +64,16 @@ function Login() {
             LOGIN
           </button>
         </div>
+        {/* <div className="mt-5 w-[95%]">
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
+        </div> */}
 
         <Link to={"/register"}>
           <button className="mt-8 rounded-md drop-shadow-md p-3 text-blue-600 ">

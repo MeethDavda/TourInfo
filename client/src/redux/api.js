@@ -8,3 +8,4 @@ const API = axios.create({
 });
 
 export const signIn = (form) => API.post("/users/signin", form);
+export const signUp = (form) => API.post("/users/signUp", form);

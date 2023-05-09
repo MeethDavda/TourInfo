@@ -10,10 +10,24 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ form, navigate, toast }) => {
     try {
-      //   console.log(form);
       const response = await api.signIn(form);
-      console.log(response);
+      // console.log(response);
       toast.success("Login Successfull");
+      navigate("/");
+      return response.data;
+    } catch (error) {
+      return isRejectedWithValue(error.message.data);
+    }
+  }
+);
+
+export const register = createAsyncThunk(
+  "auth/register",
+  async ({ form, navigate, toast }) => {
+    try {
+      const response = await api.signUp(form);
+      // console.log(response);
+      toast.success("Resgister Successfull");
       navigate("/");
       return response.data;
     } catch (error) {
@@ -41,6 +55,17 @@ const authSlice = createSlice({
     [login.rejected]: (state, acton) => {
       state.loading = false;
       state.error = acton.payload.message;
+    },
+    [register.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [register.fulfilled]: (state, action) => {
+      (state.loading = false),
+        localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
+      state.user = action.payload;
+    },
+    [register.rejected]: (state, action) => {
+      (state.loading = false), (state.error = action.payload.message);
     },
   },
 });
